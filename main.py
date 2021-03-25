@@ -25,7 +25,7 @@ def start():
         #get the prediction matrix with the probabilities of correct responses.
         output = model.predict([convert_input_to_bow(reading, allWords )])
         #get the prediction with max probability.
-
+        print(output)
 
         #get the sentiment of user input
         sent_out = loaded_clf.predict(input_to_bow_sentiment(reading))
@@ -63,11 +63,11 @@ def output_depending_on_sentiment(sentiment,output):
     if sentiment == "NEGATIVE":
         cor_label = "negative"
     else:
-        if numpy.amax(output) > 0.5:
+        if numpy.amax(output) > 0.8:
             output_i = numpy.argmax(output)
             cor_label = convoLabels[output_i]
         else:
-            cor_label = "default";
+            cor_label = "default"
         # extract the correct response from intents.json.
     for label in data['intents']:
         if label['tag'] == cor_label:
